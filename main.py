@@ -14,4 +14,4 @@ app.add_middleware(
 
 @app.get("/say-hello")
 def say_hello():
-    return {"message": "Hello World"}
+    return {"message": "Hello World nigger"}
