@@ -28,3 +28,6 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
+@app.get("/hello")
+def say_hello():
+    return {"message", "Hello World"}
