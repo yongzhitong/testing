@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 import models, schemas
 from database import SessionLocal, engine
@@ -19,6 +19,13 @@ def get_db():
 @app.get("/users", response_model=list[schemas.UserResponse])
 def read_users(db: Session = Depends(get_db)):
     return db.query(models.User).all()
+
+@app.get("/users/{user_id}", response_model=schemas.UserResponse)
+def return_user(user_id: int, db: Session=Depends(get_db)):
+    user=db.query(models.User).filter(models.User.id==user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
 
 @app.post("/users", response_model=schemas.UserResponse)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
