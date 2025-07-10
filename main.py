@@ -30,4 +30,4 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @app.get("/hello")
 def say_hello():
-    return {"message", "Hello World"}
+    return {"message": "Hello World"}
